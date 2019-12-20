@@ -1,0 +1,47 @@
+.misBarcos {
+
+    background-color: green;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+}
+
+.misBarcos.golpeados {
+    background-color: red;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+
+}
+
+.misSalvoes {
+
+    background-color: green;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+}
+
+/*
+.golpeados {
+    background-color: yellow;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+}*/
+
+
+
+/*
+table {
+
+    width: 250px;
+}
+
+th,
+td {
+    border: 1px solid black;
+    width: 35px;
+    height: 35px;
+
+}*/

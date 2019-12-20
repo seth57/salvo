@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/vue.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/mis.css">
+
+    <title>¡Salvo!</title>
+
+</head>
+
+<body>
+    <div class="container-fluid" id="app">
+        <div class="row align-items-center" id="formLogin">
+            <div class="col alert-primary align-self-end">
+
+                <label>Name: <input type="text" name="username" id="username"></label>
+                <label>Password: <input type="text" name="password" id="password"></label>
+                <button class="btn btn-primary mb-2" v-on:click="login()">log In</button>
+                <button v-on:click="register()" class="btn btn-primary mb-2">Register</button>
+            </div>
+
+        </div>
+        <div class="row alert-danger align-self-end" id="mensajeError">
+            <div class="col">USUARIO EN USO</div>
+        </div>
+
+        <div class="row alert-danger align-self-end" id="mensajeError2">
+            <div class="col">Error al logear ingrese valores correctos</div>
+        </div>
+        <div class="row align-items-center" id="formLogout">
+            <div class="col alert-success align-self-end">
+                <b>User:{{userLogged}}</b>
+                <button v-on:click="logout()" class="btn btn-primary mb-2">log Out</button>
+                <button v-on:click="createGame()" class="btn btn-primary mb-2">Create Game</button>
+            </div>
+        </div>
+        <div class="row align-items-center" id="gameCreated">
+            <div class="col alert-success align-self-end">Game Created!</div>
+        </div>
+        <div class="row align-items-start" id="Score">
+            <div class="col text-center ">
+                <h2>Partidas de Jugadores</h2>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Game</th>
+                            <th>Player 1</th>
+                            <th></th>
+                            <th>Player 2</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in juegos">
+                            <td>{{item.id}}</td>
+                            <td>{{item.created}}</td>
+
+                            <td><b><a>{{item.gamePlayers[0]!=null ?item.gamePlayers[0].player.userName : 'N/A'}}</a></b>
+                            </td>
+                            <td><b>Vs.</b></td>
+                            <td><b>{{item.gamePlayers[1]!=null ? item.gamePlayers[1].player.userName : 'N/A'}}</b></td>
+
+                            <td v-if="userLogged == item.gamePlayers[0].player.userName">
+                                <b><a v-bind:href='"/web/game.html?gp="+item.gamePlayers[0].id'>Return</a></b></td>
+                            <td v-if="item.gamePlayers[1]!=null && userLogged == item.gamePlayers[1].player.userName">
+                                <b><a v-bind:href='"/web/game.html?gp="+item.gamePlayers[1].id'>Return</a></b></td>
+
+                            <td
+                                v-if='userLogged!="" && item.gamePlayers[1]==null && userLogged!=item.gamePlayers[0].player.userName'>
+                                <button class="btn btn-danger" v-on:click="joinGame(item.id)"><b></b>Join Game</b></button> </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-center">
+                <h2>Top Scores!</h2>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            
+                            <th>Name</th>
+                            <th>Points</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Tied</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in gameScore">
+
+                            <td><b>{{item.player}}</b></td>
+                            <td>{{item.total}}</td>
+                            <td>{{item.win}}</td>
+                            <td>{{item.lost}}</td>
+                            <td>{{item.tied}}</td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="js/resumen.js"> </script> <!-- Optional JavaScript -->
+
+    <script src="js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
