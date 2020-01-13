@@ -30,7 +30,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.authorizeRequests()
                     //.antMatchers("/web/game.html**").fullyAuthenticated()
                     .antMatchers("/rest/**").hasAuthority("ADMIN")
-
+                    //.antMatchers("/DB**").permitAll()
                     .antMatchers("/api/game_view/","/web/game.html","/api/game/{id}/players", "/api/games/players/{gamePlayerId}/ships").hasAnyAuthority("USER")
                     .antMatchers("/api/**").permitAll()
                     .antMatchers("/web/games.html").permitAll();
@@ -54,6 +54,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // if login fails, just send an authentication failure response
             http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
+            http.headers().frameOptions().disable();
             // if logout is successful, just send a success response
             http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 

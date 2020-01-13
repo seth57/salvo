@@ -182,8 +182,10 @@ public class SalvoController {
         }
         for (Ship ship : ships) {
             gamePlayerOptional.get().addShip(ship);
-            shipRepository.save(ship);
+            //shipRepository.save(ship);
         }
+
+        gamePlayerRepository.save(gamePlayerOptional.get());
 
         //ship = shipRepository.save(new Ship(ship));
         return new ResponseEntity<>(makeMap("ok", "ship Created"), HttpStatus.CREATED);
@@ -216,7 +218,8 @@ public class SalvoController {
         }
 
         gamePlayerOptional.get().addSalvo(salvos);
-        //SalvoRepository.save(salvo);
+        gamePlayerRepository.save(gamePlayerOptional.get());
+        //SalvoRepository.save(salvos);
 
 
         //ship = shipRepository.save(new Ship(ship));

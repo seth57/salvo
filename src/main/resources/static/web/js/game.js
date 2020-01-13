@@ -44,7 +44,7 @@ fetch(url)
 function verificarViewer(datos) {
     app.gameInfo.created = app.juego.created;
     for (var i = 0 in datos) {
-        //console.log(datos[i] + ":" + partido);
+        //console.log(datos[i]);
         if (datos[i].id == partido) {
 
             //console.log(datos[i].id + ":" + partido);
@@ -59,7 +59,7 @@ function verificarViewer(datos) {
 contadorTurnos = 0;
 
 function pasarSalvoes(datos) {
-    //console.log(datos);
+    console.log(datos);
     var misSalvosDisparados = [];
     var elemSalvoes = [];
     for (var i = 0 in datos) {
@@ -67,16 +67,9 @@ function pasarSalvoes(datos) {
         //console.log(datos[i]);
         //console.log(app.gameInfo.viewerID);
         for (var j = 0 in datos[i].salvoLocation) {
+            //console.log(datos[i].salvoLocation[j]);
             if (app.gameInfo.viewerID == datos[i].player) { //datos[i].player) app.gameInfo.viewerID //para separ Salvos del VIEWER
                 // console.log(datos[i].salvoLocation[j]);
-                elemSalvoes = document.getElementById(datos[i].salvoLocation[j]);
-                //console.log(elemSalvoes);
-                elemSalvoes.classList.add("salvosEnemigos");
-                elemSalvoes.innerHTML = datos[i].turn;
-                //console.log(elemSalvoes);
-            } else {
-                //console.log("tabla de mis disparos");
-                //console.log(datos[i].salvoLocation[j]+datos[i].salvoLocation[j].substr(1, 1));
                 misSalvosDisparados = datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1);
                 //console.log(misSalvosDisparados);
                 misSalvosDisparados = document.getElementById(datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1));
@@ -87,6 +80,15 @@ function pasarSalvoes(datos) {
                     //verificar despues
                     misSalvosDisparados.innerHTML = datos[i].turn;
                 }
+                //console.log(elemSalvoes);
+            } else {
+                elemSalvoes = document.getElementById(datos[i].salvoLocation[j]);
+                //console.log(elemSalvoes);
+                elemSalvoes.classList.add("salvosEnemigos");
+                elemSalvoes.innerHTML = datos[i].turn;
+                //console.log("tabla de mis disparos");
+                //console.log(datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1));
+               
 
             }
             if (datos[i].turn > contadorTurnos) { //para tener el ultimo turno
@@ -660,15 +662,17 @@ function saveShips() {
 }
 
 function saveSalvos() {
+
     $.post({
 
             url: '/api/games/players/' + partido + '/salvos',
             data: JSON.stringify({
-                "turn": contadorTurnos+1,
+                "turn": contadorTurnos + 1,
                 "salvoLocations": app.salvosToSend
             }),
             success: function () {
-                //window.location.reload();
+
+                window.location.reload();
                 //console.log("mensaje");
             },
             dataType: "text",
@@ -717,22 +721,26 @@ var app = new Vue({
             //console.log(id); 
             if (contDisparos <= 5) {
                 xx = document.getElementById(id);
-                xx.classList.add("misDisparos");
-                //console.log(id.charAt(id.length-1));
-                if (parseInt(id.charAt(id.length - 1), 10) != 0) {
+                if (xx.classList != "misDisparos") {
 
-                    //console.log((id.substr(0,1))+(parseInt(id.charAt(id.length-1),10)-1));
-                    app.salvosToSend.push((id.substr(0, 1)) + (parseInt(id.charAt(id.length - 1), 10) - 1));
+                    xx.classList.add("misDisparos");
+                    //console.log(id.charAt(id.length-1));
+                    if (parseInt(id.charAt(id.length - 1), 10) != 0) {
+
+                        //console.log((id.substr(0,1))+(parseInt(id.charAt(id.length-1),10)-1));
+                        app.salvosToSend.push((id.substr(0, 1)) + (parseInt(id.charAt(id.length - 1), 10) - 1));
+                    } else {
+                        //console.log((id.substr(0,1)+9));
+                        app.salvosToSend.push((id.substr(0, 1) + 9));
+                    }
+                    contDisparos = contDisparos + 1;
+                    console.log(app.salvosToSend);
                 } else {
-                    //console.log((id.substr(0,1)+9));
-                    app.salvosToSend.push((id.substr(0, 1) + 9));
+                    console.log("Sitio ya usado!");
                 }
-                contDisparos = contDisparos + 1;
-                console.log(app.salvosToSend);
             } else {
-                console.log("no mas disparos");
-            }
-
+                console.log("No mas disparos");
+                   }
         }
     }
 });

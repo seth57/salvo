@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 
 @SpringBootApplication
 public class SalvoApplication extends SpringBootServletInitializer {
@@ -100,14 +102,14 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpRep.save(gpPlayer13);
             GamePlayer gpPlayer14 = new GamePlayer(game8,player4);
             gpRep.save(gpPlayer14);
-/*
+
             ////SALVOS
             Salvo salvo4=new Salvo(gpPlayer2,1, Arrays.asList("B4", "B5", "B6"));
             salvoRep.save(salvo4);
             Salvo salvo5=new Salvo(gpPlayer2,2, Arrays.asList("E1", "H3", "A2"));
             salvoRep.save(salvo5);
 
-*/
+
 
             ////////////////////////PARA JUEGO 1 /////////////////////////////////////////
            /* Ship ship1=new Ship("Destroyer", Arrays.asList("H2","H3","H4"));
@@ -118,8 +120,8 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpPlayer1.addShip(ship3);
             shipRep.save(ship1);
             shipRep.save(ship2);
-            shipRep.save(ship3);
-            Salvo salvo1=new Salvo(gpPlayer1,1,Arrays.asList("B5","D1"));
+            shipRep.save(ship3);*/
+            Salvo salvo1=new Salvo(gpPlayer1,1, Arrays.asList("B5","D1"));
             Salvo salvo2=new Salvo(gpPlayer1,2,Arrays.asList("G2","E7"));
             Salvo salvo3=new Salvo(gpPlayer1,3, Collections.singletonList("H6"));
             gpPlayer1.addSalvo(salvo1);
@@ -127,7 +129,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpPlayer1.addSalvo(salvo3);
             salvoRep.save(salvo1);
             salvoRep.save(salvo2);
-            salvoRep.save(salvo3);*/
+            salvoRep.save(salvo3);
 
             ///////////////////////PARA SCORE ////////////////////////
             Score score1=new Score(game1,player1,1);
@@ -158,8 +160,8 @@ public class SalvoApplication extends SpringBootServletInitializer {
             shipRep.save(ship4);
             shipRep.save(ship5);
 */
-
 /*
+
             // INSTANCIA 1 DE BARCOS PARA LA PARTIDA DE JUEGO  1
             Ship ship0 = new Ship("Destroyer", Arrays.asList("H2", "H3", "H4"));
             Ship ship1 = new Ship("Submarine", Arrays.asList("E1", "F1", "G1"));
@@ -171,8 +173,8 @@ public class SalvoApplication extends SpringBootServletInitializer {
             Salvo salvo2 = new Salvo(2, Arrays.asList("F2", "D5"));
             gamePlayer1.addSalvo(salvo1);
             gamePlayer1.addSalvo(salvo2);
-            gameplayerRepository.save(gamePlayer1);
-*/
+            gameplayerRepository.save(gamePlayer1);*/
+
 
 
         };
