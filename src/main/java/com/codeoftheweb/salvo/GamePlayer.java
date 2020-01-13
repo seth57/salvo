@@ -75,8 +75,14 @@ public class GamePlayer {
         return this.player.getScore(this.game);
 
     }
+    @JsonIgnore
+    public GamePlayer getOpponent(){ //para tener el oponente
+        return this.getGame().getGamePlayers().stream()
+                .filter(x->x.getId()!=this.id)//retorna el el juego y ID de ESE JUEGO
+                .findFirst()
+                .orElse(null);
 
-
+    }
     public void addShip(Ship ship) {
         ship.setGamePlayer(this);
         ships.add(ship);

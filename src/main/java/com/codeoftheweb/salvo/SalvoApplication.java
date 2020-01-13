@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
 
 @SpringBootApplication
 public class SalvoApplication extends SpringBootServletInitializer {
@@ -102,17 +100,17 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpRep.save(gpPlayer13);
             GamePlayer gpPlayer14 = new GamePlayer(game8,player4);
             gpRep.save(gpPlayer14);
-
+/*
             ////SALVOS
             Salvo salvo4=new Salvo(gpPlayer2,1, Arrays.asList("B4", "B5", "B6"));
             salvoRep.save(salvo4);
             Salvo salvo5=new Salvo(gpPlayer2,2, Arrays.asList("E1", "H3", "A2"));
             salvoRep.save(salvo5);
 
-
+*/
 
             ////////////////////////PARA JUEGO 1 /////////////////////////////////////////
-            Ship ship1=new Ship("Destroyer", Arrays.asList("H2","H3","H4"));
+           /* Ship ship1=new Ship("Destroyer", Arrays.asList("H2","H3","H4"));
             Ship ship2=new Ship("Submarine", Arrays.asList("E1","F1","G1"));
             Ship ship3=new Ship("Patrol Boat", Arrays.asList("B4","B5"));
             gpPlayer1.addShip(ship1);
@@ -129,7 +127,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpPlayer1.addSalvo(salvo3);
             salvoRep.save(salvo1);
             salvoRep.save(salvo2);
-            salvoRep.save(salvo3);
+            salvoRep.save(salvo3);*/
 
             ///////////////////////PARA SCORE ////////////////////////
             Score score1=new Score(game1,player1,1);
@@ -150,7 +148,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             scrRep.save(score7);
             scrRep.save(score8);
 
-
+/*
 
 
             Ship ship4=new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"));
@@ -159,7 +157,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpPlayer2.addShip(ship5);
             shipRep.save(ship4);
             shipRep.save(ship5);
-
+*/
 
 /*
             // INSTANCIA 1 DE BARCOS PARA LA PARTIDA DE JUEGO  1

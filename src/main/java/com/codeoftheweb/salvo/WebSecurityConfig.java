@@ -31,7 +31,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //.antMatchers("/web/game.html**").fullyAuthenticated()
                     .antMatchers("/rest/**").hasAuthority("ADMIN")
 
-                    .antMatchers("/api/game_view/","/web/game.html","/api/game/{id}/players").hasAnyAuthority("USER")
+                    .antMatchers("/api/game_view/","/web/game.html","/api/game/{id}/players", "/api/games/players/{gamePlayerId}/ships").hasAnyAuthority("USER")
                     .antMatchers("/api/**").permitAll()
                     .antMatchers("/web/games.html").permitAll();
 

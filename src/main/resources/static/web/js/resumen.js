@@ -148,7 +148,7 @@ var app = new Vue({
                     //console.log(json.gpid);
                     if (json.gpid != "Unauthorized") {
                         //document.getElementById("gameCreated").style.display = "block";
-                        window.location.href("/web/game.html?gp="+json.gpid);
+                        window.location.href="/web/game.html?gp="+json.gpid;
         
                     }
                 }).fail(function (status, error) {

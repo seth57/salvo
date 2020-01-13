@@ -8,8 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="js/vue.js"></script>
 
+    <!--Grid-->
+    <link rel="stylesheet" href="styles/grid/normalize.css">
+    <link rel="stylesheet" href="styles/grid/gridstack.css">
+    <link rel="stylesheet" href="styles/grid/gridstack-extra.css">
+
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="styles/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="styles/mis.css">
 
     <title>¡Salvo!</title>
@@ -20,6 +28,7 @@
     <div class="container-fluid" id="app">
 
         <div class="row justify-content-around">
+           <!--  <button class="btn btn-info" onclick="goBack()">Return</button> -->
             <div class="col text-center">
                 <h2>Datos de la Partida</h2>
                 <table class="table">
@@ -47,60 +56,97 @@
                 </table>
             </div>
         </div>
-        <div class="row justify-content-around">
-            <div class="col text-center">
-                <h2>Mis Barcos</h2>
-                <table class="table table-bordered" border="1">
-                    <thead class="thead-light">
-                        <tr>
+        <div class="row" id="opciones">
+            <div class="col">
+                <h1>Opciones</h1>
+                <div class="row">
+                    <div class="col" id="buttonSaveShips">
+                        <button class="btn btn-danger" onclick="saveShips()"><b></b>Save Ships</b></button>
+                    </div>
+                    <div class="col" id="buttonSaveSalvoes">
+                        <button class="btn btn-danger" onclick="saveSalvos()"><b></b>Save Shoots</b></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row ">
 
+            <div class="col text-center ">
+                <h2>Mis Barcos</h2>
+                <div class="grid mostrar">
+                    <table class="table-bordered">
+                        <!-- <thead class="thead-light">
+                        <tr>
                             <th></th>
                             <th v-for="item in row">{{ item }}</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in col">
-                            <td>{{ item }}</td>
-                            <td :id="item+11"></td>
-                            <td :id="item+21"></td>
-                            <td :id="item+31"></td>
-                            <td :id="item+41"></td>
-                            <td :id="item+51"></td>
-                            <td :id="item+61"></td>
-                            <td :id="item+71"></td>
-                            <td :id="item+81"></td>
-                            <td :id="item+91"></td>
-                            <td :id="item+101"></td>
+                    </thead> -->
 
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+
+                            <tr v-for="item in row">
+                                <!-- <td>{{ item }}</td> -->
+                                <td :id="item+0"></td>
+                                <td :id="item+1"></td>
+                                <td :id="item+2"></td>
+                                <td :id="item+3"></td>
+                                <td :id="item+4"></td>
+                                <td :id="item+5"></td>
+                                <td :id="item+6"></td>
+                                <td :id="item+7"></td>
+                                <td :id="item+8"></td>
+                                <td :id="item+9"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="grid-ships gridmostrar">
+                    <!-- div que usa la librería gridstack grid-stack-10 se indica que son 10 columnas-->
+                    <div id="grid" class="grid-stack grid-stack-10">
+                        <!--se agrega un elemento (widget) a la grilla-->
+                        <!--data-gs-x y data-gs-y posicion de inicio -->
+                        <!-- data-gs-width cuantas columnas ocupa data-gs-height cuantas filas ocupa -->
+                        <!-- -----------
+                        <div id="carrier" class="grid-stack-item"
+                            data-gs-x="0" data-gs-y="0"
+                            data-gs-width="3" data-gs-height="1"> -->
+                        <!--div contenerdor (acá se coloca la imagen de fondo, además se coloca el mouse como una mano, etc..)-->
+                        <!-- <div class="grid-stack-item-content carrierHorizontal"></div>
+                        </div>
+                        <div id="patroal" class="grid-stack-item"
+                            data-gs-x="4" data-gs-y="0"
+                            data-gs-width="2" data-gs-height="1">
+                                <div class="grid-stack-item-content patroalHorizontal"></div>
+                        </div> -->
+                    </div>
+                </div>
             </div>
 
             <div class="col text-center">
                 <h2>Mis Disparos</h2>
-                <table class="table table-bordered" border="1">
-                    <thead class="thead-light">
+                <table class="table-bordered">
+                    <!-- <thead class="thead-light">
                         <tr>
                             <th></th>
                             <th v-for="item in row">{{ item }}</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
 
-                        <tr v-for="item in col">
-                            <td>{{ item }}</td>
-                            <td :id="item+12" @click="getID(id)">
-                            </td>
-                            <td :id="item+22" @click="getID(id)"></td>
-                            <td :id="item+32" @click="getID(id)"></td>
-                            <td :id="item+42" @click="getID(id)"></td>
-                            <td :id="item+52" @click="getID(id)"></td>
-                            <td :id="item+62" @click="getID(id)"></td>
-                            <td :id="item+72" @click="getID(id)"></td>
-                            <td :id="item+82" @click="getID(id)"></td>
-                            <td :id="item+92" @click="getID(id)"></td>
-                            <td :id="item+102" @click="getID(id)"></td>
+                        <tr v-for="item in row">
+                            <!-- <td>{{ item }}</td>  -->
+                            <td :id="item+11" v-on:click='seleccion(item+11)'></td>
+                            <td :id="item+22" v-on:click='seleccion(item+22)'></td>
+                            <td :id="item+33" v-on:click='seleccion(item+33)'></td>
+                            <td :id="item+44" v-on:click='seleccion(item+44)'></td>
+                            <td :id="item+55" v-on:click='seleccion(item+55)'></td>
+                            <td :id="item+66" v-on:click='seleccion(item+66)'></td>
+                            <td :id="item+77" v-on:click='seleccion(item+77)'></td>
+                            <td :id="item+88" v-on:click='seleccion(item+88)'></td>
+                            <td :id="item+99" v-on:click='seleccion(item+99)'></td>
+                            <td :id="item+10" v-on:click='seleccion(item+10)'></td> 
 
                         </tr>
                     </tbody>
@@ -111,15 +157,26 @@
 
         </div>
 
-
     </div>
 
 
 
-    <script src="js/game.js"> </script> <!-- Optional JavaScript -->
+    <!--grid-->
     <script src="js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script src="js/grid/jquery-ui.min.js"></script>
+    <script src="js/grid/gridstack.js"></script>
+    <script src="js/grid/gridstack.jQueryUI.js"></script>
+    <script src="js/grid/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- Optional JavaScript -->
+    <script src="js/game.js"> </script>
+
+    <script src="js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

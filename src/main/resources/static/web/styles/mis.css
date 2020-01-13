@@ -1,29 +1,113 @@
 .misBarcos {
-
-    background-color: green;
+    background-color: rgb(162, 214, 162);
     text-align: center;
     font-weight: bold;
     border-radius: 35%;
 }
 
-.misBarcos.golpeados {
+.grid.mostrar {
+    position: absolute;
+}
+
+td {
+   
+    width: 45px;
+    height: 45px;
+}
+
+.misBarcos.salvosEnemigos {
     background-color: red;
     text-align: center;
     font-weight: bold;
     border-radius: 35%;
 
 }
-
-.misSalvoes {
-
+.misDisparos {
     background-color: green;
     text-align: center;
     font-weight: bold;
     border-radius: 35%;
 }
 
+.salvosEnemigos {
+
+    background-color: yellow;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+}
+
+.grid-stack-item-content {
+    opacity: 0.9;
+    background-repeat: no-repeat;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.carrierHorizontal {
+    background-image: url('../boats/carrierhor.png');
+    background-size: contain;
+}
+
+.carrierVertical {
+    background-image: url('../boats/carrierver.png');
+    background-size: 100% 100%;
+    width: 45px !important;
+}
+
+.BattleShipHorizontal {
+    background-image: url('../boats/battleshiphor.png');
+    background-size: contain;
+}
+
+.BattleShipVertical {
+    background-image: url('../boats/battleshipver.png');
+    background-size: 100% 100%;
+    width: 45px !important;
+}
+
+.SubmarineHorizontal {
+    background-image: url('../boats/submarinehor.png');
+    background-size: contain;
+}
+
+.SubmarineVertical {
+    background-image: url('../boats/submarinever.png');
+    background-size: 100% 100%;
+    width: 45px !important;
+}
+
+.destroyerHorizontal {
+    background-image: url('../boats/destroyerhor.png');
+    background-size: contain;
+}
+
+.destroyerVertical {
+    background-image: url('../boats/destroyerver.png');
+    background-size: 100% 100%;
+    width: 45px !important;
+}
+
+.patrolBoatHorizontal {
+    background-image: url('../boats/patrolboathor.png');
+    background-size: contain;
+}
+
+.patrolBoatVertical {
+    background-image: url('../boats/patrolboatver.png');
+    background-size: 100% 100%;
+    width: 45px !important;
+}
+
+
+.grid-ships {
+    border: solid black;
+    height: 450px;
+    width: 450px;
+}
+
 /*
-.golpeados {
+.salvosEnemigos {
     background-color: yellow;
     text-align: center;
     font-weight: bold;
