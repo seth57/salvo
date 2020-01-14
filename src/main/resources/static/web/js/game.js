@@ -52,6 +52,7 @@ function verificarViewer(datos) {
             app.gameInfo.viewer = datos[i].player.userName;
         } else {
             app.gameInfo.notViewer = datos[i].player.userName;
+
         }
     }
 
@@ -59,7 +60,7 @@ function verificarViewer(datos) {
 contadorTurnos = 0;
 
 function pasarSalvoes(datos) {
-    console.log(datos);
+    //console.log(datos);
     var misSalvosDisparados = [];
     var elemSalvoes = [];
     for (var i = 0 in datos) {
@@ -69,28 +70,30 @@ function pasarSalvoes(datos) {
         for (var j = 0 in datos[i].salvoLocation) {
             //console.log(datos[i].salvoLocation[j]);
             if (app.gameInfo.viewerID == datos[i].player) { //datos[i].player) app.gameInfo.viewerID //para separ Salvos del VIEWER
-                // console.log(datos[i].salvoLocation[j]);
-                misSalvosDisparados = datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1);
-                //console.log(misSalvosDisparados);
-                misSalvosDisparados = document.getElementById(datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1));
-                //console.log(misSalvosDisparados);
+                //console.log("asi viene: "+datos[i].salvoLocation[j]);
+                //misSalvosDisparados= datos[i].salvoLocation[j];
+                misSalvosDisparados=document.getElementById('s'+datos[i].salvoLocation[j]);
                 misSalvosDisparados.classList.add("misDisparos");
-
-                if (elemSalvoes.className == "misBarcos salvosEnemigos") {
-                    //verificar despues
-                    misSalvosDisparados.innerHTML = datos[i].turn;
-                }
+                misSalvosDisparados.innerHTML = datos[i].turn;
                 //console.log(elemSalvoes);
             } else {
                 elemSalvoes = document.getElementById(datos[i].salvoLocation[j]);
                 //console.log(elemSalvoes);
                 elemSalvoes.classList.add("salvosEnemigos");
-                elemSalvoes.innerHTML = datos[i].turn;
+                //elemSalvoes.innerHTML = datos[i].turn;
                 //console.log("tabla de mis disparos");
                 //console.log(datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1));
-               
+
+                if (elemSalvoes.className == "misBarcos salvosEnemigos") {
+                                                   //verificar despues
+                                                  elemSalvoes.innerHTML = datos[i].turn;
+                }
 
             }
+            /*if(datos[i].salvoLocation[j]==){
+                                                misSalvosDisparados.innerHTML = datos[i].turn;
+                                                //agregar classname nuevo para mis disparos acertados
+             }*/
             if (datos[i].turn > contadorTurnos) { //para tener el ultimo turno
                 contadorTurnos = datos[i].turn
             }
@@ -548,7 +551,7 @@ function savePosition() {
 
         }
     }
-    /* 
+    /*
      console.log(app.carrierPosition);
      console.log(app.BattleShipPosition);
      console.log(app.SubmarinePosition);
@@ -662,7 +665,7 @@ function saveShips() {
 }
 
 function saveSalvos() {
-
+//console.log(app.salvosToSend)
     $.post({
 
             url: '/api/games/players/' + partido + '/salvos',
@@ -671,9 +674,8 @@ function saveSalvos() {
                 "salvoLocations": app.salvosToSend
             }),
             success: function () {
+                 window.location.reload();
 
-                window.location.reload();
-                //console.log("mensaje");
             },
             dataType: "text",
             contentType: "application/json"
@@ -718,25 +720,20 @@ var app = new Vue({
     },
     methods: {
         seleccion: function (id) {
-            //console.log(id); 
+            //console.log(id);
             if (contDisparos <= 5) {
-                xx = document.getElementById(id);
+                xx = document.getElementById('s'+id); // 's' para saparar de las otra tabla
                 if (xx.classList != "misDisparos") {
 
                     xx.classList.add("misDisparos");
-                    //console.log(id.charAt(id.length-1));
-                    if (parseInt(id.charAt(id.length - 1), 10) != 0) {
+                    app.salvosToSend.push(id);
 
-                        //console.log((id.substr(0,1))+(parseInt(id.charAt(id.length-1),10)-1));
-                        app.salvosToSend.push((id.substr(0, 1)) + (parseInt(id.charAt(id.length - 1), 10) - 1));
-                    } else {
-                        //console.log((id.substr(0,1)+9));
-                        app.salvosToSend.push((id.substr(0, 1) + 9));
-                    }
                     contDisparos = contDisparos + 1;
                     console.log(app.salvosToSend);
                 } else {
                     console.log("Sitio ya usado!");
+                    xx.classList.remove("misDisparos");
+                    contDisparos = contDisparos - 1;
                 }
             } else {
                 console.log("No mas disparos");
