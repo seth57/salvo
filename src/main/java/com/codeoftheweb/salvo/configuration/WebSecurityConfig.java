@@ -1,4 +1,4 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //.antMatchers("/web/game.html**").fullyAuthenticated()
                     .antMatchers("/rest/**").hasAuthority("ADMIN")
                     //.antMatchers("/DB**").permitAll()
-                    .antMatchers("/api/game_view/","/web/game.html","/api/game/{id}/players", "/api/games/players/{gamePlayerId}/ships").hasAnyAuthority("USER")
+                    .antMatchers("/api/game_view/**","/web/game.html","/api/game/{id}/players", "/api/games/players/{gamePlayerId}/ships").hasAnyAuthority("USER")
                     .antMatchers("/api/**").permitAll()
                     .antMatchers("/web/games.html").permitAll();
 

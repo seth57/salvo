@@ -1,5 +1,7 @@
 package com.codeoftheweb.salvo;
 
+import com.codeoftheweb.salvo.models.Player;
+import com.codeoftheweb.salvo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,10 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
 
 @SpringBootApplication
 public class SalvoApplication extends SpringBootServletInitializer {
@@ -28,12 +26,12 @@ public class SalvoApplication extends SpringBootServletInitializer {
 
     @Bean
     public CommandLineRunner llenarTablasDB(
-            PlayerRepository        pjRep,
-            GameRepository          gameRep,
-            GamePlayerRepository    gpRep,
+            PlayerRepository pjRep,
+            GameRepository gameRep,
+            GamePlayerRepository gpRep,
             ShipRepository          shipRep,
-            SalvoRepository         salvoRep,
-            ScoreRepository         scrRep
+            SalvoRepository salvoRep,
+            ScoreRepository scrRep
             ) {
         return (args) -> {
             // save a couple of customers
@@ -48,7 +46,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             pjRep.save(player2);
             pjRep.save(player3);
             pjRep.save(player4);
-
+/*
             Game game1 = new Game(LocalDateTime.now());
             Game game2 = new Game(LocalDateTime.now());
             Game game3 = new Game(LocalDateTime.now());
@@ -121,7 +119,8 @@ public class SalvoApplication extends SpringBootServletInitializer {
             shipRep.save(ship1);
             shipRep.save(ship2);
             shipRep.save(ship3);*/
-            Salvo salvo1=new Salvo(gpPlayer1,1, Arrays.asList("B5","D1"));
+
+           /* Salvo salvo1=new Salvo(gpPlayer1,1, Arrays.asList("B5","D1"));
             Salvo salvo2=new Salvo(gpPlayer1,2,Arrays.asList("G2","E7"));
             Salvo salvo3=new Salvo(gpPlayer1,3, Collections.singletonList("H6"));
             gpPlayer1.addSalvo(salvo1);
@@ -149,7 +148,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             scrRep.save(score6);
             scrRep.save(score7);
             scrRep.save(score8);
-
+*/
 /*
 
 

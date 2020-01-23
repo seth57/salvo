@@ -1,5 +1,5 @@
 .misBarcos {
-    background-color: rgb(162, 214, 162);
+    background-color: rgba(0, 128, 0, 0.5);
     text-align: center;
     font-weight: bold;
     border-radius: 35%;
@@ -16,6 +16,9 @@ td {
 }
 
 .misBarcos.salvosEnemigos {
+    background: url("../boats/hit.gif") repeat center;
+    background-position: center center;
+    background-size: cover;
     background-color: red;
     text-align: center;
     font-weight: bold;
@@ -28,7 +31,15 @@ td {
     font-weight: bold;
     border-radius: 35%;
 }
-
+.misDisparos.acertados {
+    background: url("../boats/hit.gif") repeat center;
+    background-position: center center;
+    background-size: cover;
+    background-color: red;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 35%;
+}
 .salvosEnemigos {
 
     background-color: yellow;
@@ -36,13 +47,38 @@ td {
     font-weight: bold;
     border-radius: 35%;
 }
-
+#barcosHundidos{
+    width: 300px !important;
+}
+.table-bordered{
+    width: 444px !important;
+}
 .grid-stack-item-content {
     opacity: 0.9;
     background-repeat: no-repeat;
     cursor: -webkit-grab;
     cursor: -moz-grab;
 }
+
+.imageHundidos {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60%;
+    height: 100%;
+    padding: 0px 30px;
+}
+.status{
+    background-color: rgba(56, 124, 56, 0.308);
+}
+.bloque {
+    background-color: rgba(56, 124, 56, 0.308);
+    padding: 0 30px;
+    display: inline-flex;
+    align-items: center;
+ }
+ .bloque.Hundido{
+     background-color: rgba(255, 0, 0, 0.808);
+ }
 
 .carrierHorizontal {
     background-image: url('../boats/carrierhor.png');

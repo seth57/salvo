@@ -1,4 +1,4 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
@@ -47,7 +47,7 @@ public class Game {
 
 
     ///Privado DTO Game + desde Player
-    Map<String, Object> gameDTOconGamePlayers() {
+    public Map<String, Object> gameDTOconGamePlayers() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", this.id);
         dto.put("created", this.date);

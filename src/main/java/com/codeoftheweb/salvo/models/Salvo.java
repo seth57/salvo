@@ -1,10 +1,12 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.models;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Entity
 public class Salvo {
@@ -14,7 +16,7 @@ public class Salvo {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    public int turn;
+    private int turn;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,6 +45,25 @@ public class Salvo {
     }
 
 
+    public Map<String, Object> makeSalvoHitsDTO() {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("turn", this.turn);
+        dto.put("misHits",getHits());
+        return dto;
+    }
+
+
+    public  Stream<String> getHits(){//para filtrar
+        return this.gamePlayer.getOpponent().getShips().stream()
+            .flatMap(y->y.getShipLocations().stream())//para llamar a otro metodo que no esta en mi clase yso los punteros y->y
+            .filter(location->this.salvoLocations.contains(location));
+    }
+
+
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
     public GamePlayer getGamePlayer() {
         return gamePlayer;

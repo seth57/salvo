@@ -31,15 +31,48 @@ fetch(url)
     })
 
     .then(function (datosJS) {
-        console.log(datosJS);
+        //console.log(datosJS);
 
         app.juego = datosJS;
         verificarViewer(app.juego.gamePlayers);
-        verificarShips(app.juego.ships);
-        pasarSalvoes(app.juego.salvoes);
+        tableroMisBarcos(app.juego.ships);
+        tableroMisBarcosSalvos(app.juego.salvoes);
+        tableroMisDisparosAcertados(app.juego.misHITS);
+        marcarHundidos(app.juego.Sinks);
+        if(app.juego.state=="TIE"||app.juego.state=="WIN"||app.juego.state=="LOSE"){
+            document.getElementById("buttonSaveSalvoes").style.display = "none";
 
-
+           
+        }
     })
+
+setInterval(function () {//reload cada 10 sec * 1000 milisec
+    window.location.reload();
+}, 10000);
+
+function marcarHundidos(datos) {
+    //console.log(datos);
+
+    for (var i = 0 in datos) {
+        barcosdeJsonHundidos = document.getElementById(datos[i] + 'Hundido');
+        barcosdeJsonHundidos.classList.add('Hundido');
+    }
+
+}
+
+function tableroMisDisparosAcertados(datos) {
+    for (var i = 0 in datos) {
+        if (datos[i].misHits != 0) { //hay hit
+            for (var j = 0 in datos[i].misHits) {
+                //console.log(datos[i].misHits[j]);
+                tirosAcertados = document.getElementById('s' + datos[i].misHits[j]);
+                tirosAcertados.classList.add("acertados");
+                tirosAcertados.innerHTML = datos[i].turn;
+            }
+
+        }
+    }
+}
 
 function verificarViewer(datos) {
     app.gameInfo.created = app.juego.created;
@@ -59,7 +92,7 @@ function verificarViewer(datos) {
 }
 contadorTurnos = 0;
 
-function pasarSalvoes(datos) {
+function tableroMisBarcosSalvos(datos) {
     //console.log(datos);
     var misSalvosDisparados = [];
     var elemSalvoes = [];
@@ -72,7 +105,7 @@ function pasarSalvoes(datos) {
             if (app.gameInfo.viewerID == datos[i].player) { //datos[i].player) app.gameInfo.viewerID //para separ Salvos del VIEWER
                 //console.log("asi viene: "+datos[i].salvoLocation[j]);
                 //misSalvosDisparados= datos[i].salvoLocation[j];
-                misSalvosDisparados=document.getElementById('s'+datos[i].salvoLocation[j]);
+                misSalvosDisparados = document.getElementById('s' + datos[i].salvoLocation[j]);
                 misSalvosDisparados.classList.add("misDisparos");
                 misSalvosDisparados.innerHTML = datos[i].turn;
                 //console.log(elemSalvoes);
@@ -85,8 +118,8 @@ function pasarSalvoes(datos) {
                 //console.log(datos[i].salvoLocation[j] + datos[i].salvoLocation[j].substr(1, 1));
 
                 if (elemSalvoes.className == "misBarcos salvosEnemigos") {
-                                                   //verificar despues
-                                                  elemSalvoes.innerHTML = datos[i].turn;
+                    //verificar despues
+                    elemSalvoes.innerHTML = datos[i].turn;
                 }
 
             }
@@ -101,11 +134,6 @@ function pasarSalvoes(datos) {
     }
     //console.log(contadorTurnos);
 }
-
-
-
-
-
 
 function llenarinfoJS(datosJS) {
     for (var i = 0 in datosJS) {
@@ -196,9 +224,9 @@ $('#carrier2').attr('data-gs-width')*/
     })
     //verificando si un area se encuentra libre
     //no está libre, false
-    console.log(grid.isAreaEmpty(1, 8, 3, 1));
+    //console.log(grid.isAreaEmpty(1, 8, 3, 1));
     //está libre, true
-    console.log(grid.isAreaEmpty(1, 7, 3, 1));
+    //console.log(grid.isAreaEmpty(1, 7, 3, 1));
 
     $("#carrier").click(function () {
         var ship = document.getElementById("carrier");
@@ -284,7 +312,7 @@ $('#carrier2').attr('data-gs-width')*/
     //});
 }
 
-function verificarShips(datos) {
+function tableroMisBarcos(datos) {
 
     var elem = [];
     //console.log(datos);
@@ -395,9 +423,6 @@ function verificarShips(datos) {
     }
 }
 
-function goBack() {
-    window.history.back();
-}
 
 function savePosition() {
     var j = 0;
@@ -665,16 +690,17 @@ function saveShips() {
 }
 
 function saveSalvos() {
-//console.log(app.salvosToSend)
+    //console.log(app.salvosToSend)
+
     $.post({
 
             url: '/api/games/players/' + partido + '/salvos',
             data: JSON.stringify({
-                "turn": contadorTurnos + 1,
+                "turn": contadorTurnos,
                 "salvoLocations": app.salvosToSend
             }),
             success: function () {
-                 window.location.reload();
+                window.location.reload();
 
             },
             dataType: "text",
@@ -720,24 +746,34 @@ var app = new Vue({
     },
     methods: {
         seleccion: function (id) {
-            //console.log(id);
-            if (contDisparos <= 5) {
-                xx = document.getElementById('s'+id); // 's' para saparar de las otra tabla
-                if (xx.classList != "misDisparos") {
+            //console.log(contDisparos);
+            if (contDisparos < 6) {
+                idCelda = document.getElementById('s' + id); // 's' para saparar de las otra tabla
+                if (idCelda.classList != "misDisparos") {
 
-                    xx.classList.add("misDisparos");
+                    idCelda.classList.add("misDisparos");
                     app.salvosToSend.push(id);
 
                     contDisparos = contDisparos + 1;
-                    console.log(app.salvosToSend);
+                    //console.log(app.salvosToSend);
                 } else {
                     console.log("Sitio ya usado!");
-                    xx.classList.remove("misDisparos");
+                    idCelda.classList.remove("misDisparos");
                     contDisparos = contDisparos - 1;
+
+                    var indice = app.salvosToSend.indexOf(app.salvosToSend.length);
+                    app.salvosToSend.splice(indice, 1);
+
+
                 }
             } else {
-                console.log("No mas disparos");
-                   }
+                //console.log("No mas disparos");
+                idCelda.classList.remove("misDisparos");
+                contDisparos = contDisparos - 1;
+
+                var indice = app.salvosToSend.indexOf(app.salvosToSend.length);
+                app.salvosToSend.splice(indice, 1);
+            }
         }
     }
 });

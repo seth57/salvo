@@ -86,7 +86,6 @@ function llenarScores(datos) {
                         "tied": tied,
                         "lost": lost,
                         "total": total,
-
                     });
 
 

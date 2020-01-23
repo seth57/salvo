@@ -1,6 +1,9 @@
-package com.codeoftheweb.salvo;
+package com.codeoftheweb.salvo.controller;
 
 
+import com.codeoftheweb.salvo.State;
+import com.codeoftheweb.salvo.models.*;
+import com.codeoftheweb.salvo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,17 +68,6 @@ public class SalvoController {
             return new ResponseEntity<>(makeMap("error", "Not your Game"), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(gamePlayerRepository.findById(id).get().gameViewDTO(), HttpStatus.ACCEPTED);
-    }
-
-    private Map<String, Object> makeMap(String key, Object value) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(key, value);
-        return map;
-    }
-
-    //un DTO que englobe el id + playeruserName +[game]
-    private boolean isGuest(Authentication authentication) {
-        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
 
     @RequestMapping("/games")
@@ -176,7 +168,6 @@ public class SalvoController {
         if (isGuest(authentication)) {//gets the current user if there is none
             return new ResponseEntity<>(makeMap("error", "Unauthorized"), HttpStatus.UNAUTHORIZED);
         }
-
         if (gamePlayerOptional.get().getShips().size() > 1) {//si tiene mas del algun espacio ocupado.. ya envio almenos un ship
             return new ResponseEntity<>(makeMap("error", "Ships allready Placed"), HttpStatus.FORBIDDEN);
         }
@@ -200,29 +191,62 @@ public class SalvoController {
         if (!gamePlayerOptional.isPresent()) {
             return new ResponseEntity<>(makeMap("error", "Not Exist"), HttpStatus.NOT_FOUND); //gameplayer
         }
-        if (gamePlayerOptional.get().player.getId() != player.getId()) {
+        GamePlayer gamePlayer = gamePlayerOptional.get();
+
+        if (gamePlayer.player.getId() != player.getId()) {
             return new ResponseEntity<>(makeMap("error", "Not your Game"), HttpStatus.UNAUTHORIZED);
         }
 
         if (isGuest(authentication)) {//gets the current user if there is none
             return new ResponseEntity<>(makeMap("error", "Unauthorized"), HttpStatus.UNAUTHORIZED);
         }
-
-        if (gamePlayerOptional.get().getOpponent() != null) {
-            if (gamePlayerOptional.get().getSalvoes().size() >= gamePlayerOptional.get().getOpponent().getSalvoes().size() + 1) {
-                return new ResponseEntity<>(makeMap("turn", "No Puede Disparar"), HttpStatus.FORBIDDEN);
-
-            }
-        } else {
-            return new ResponseEntity<>(makeMap("error", "Sin Oponentes!"), HttpStatus.FORBIDDEN);
+        if(salvos.getSalvoLocations().size()>5){//VERIFICAR SI POR CONSOLA PUEDE MANDAR MAS DE 5 TIROS
+            return new ResponseEntity<>(makeMap("error", "no more than 5 Salvoes"), HttpStatus.UNAUTHORIZED);
         }
-
-        gamePlayerOptional.get().addSalvo(salvos);
-        gamePlayerRepository.save(gamePlayerOptional.get());
+        if(!gamePlayer.getState().equals(State.PLAY)){
+            return new ResponseEntity<>(makeMap("error","no se puede jugar"),HttpStatus.FORBIDDEN);
+        }
+        // Salvo salvo1=new Salvo(gpPlayer1,1, Arrays.asList("B5","D1"));
+        salvos.setTurn(gamePlayer.getSalvoes().size()+1);//setea el turno del salvo from gameplayer+1
+        gamePlayer.addSalvo(salvos);
+        gamePlayerRepository.save(gamePlayer);
         //SalvoRepository.save(salvos);
+        //Score score8=new Score(game4,player1,0.5);
 
+        //scrRep.save(score1);
+        createScores(gamePlayer, gamePlayer.getState());
 
         //ship = shipRepository.save(new Ship(ship));
         return new ResponseEntity<>(makeMap("ok", "Salvo Salvado"), HttpStatus.CREATED);
+    }
+
+    private void createScores(GamePlayer gamePlayer, State state) {
+        if (state.equals(State.TIE)){
+            Score score=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),0.5);
+            Score score1=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),0.5);
+            scoreRepository.save(score);
+            scoreRepository.save(score1);
+        } else if(state.equals(State.WIN)){
+            Score score2=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),1);
+            Score score3=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),0);
+            scoreRepository.save(score2);
+            scoreRepository.save(score3);
+        }else if(state.equals(State.LOST)){
+            Score score4=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),0);
+            Score score5=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),1);
+            scoreRepository.save(score4);
+            scoreRepository.save(score5);
+        }
+    }
+
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
+    }
+
+    //un DTO que englobe el id + playeruserName +[game]
+    private boolean isGuest(Authentication authentication) {
+        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
 }

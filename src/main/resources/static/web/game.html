@@ -28,7 +28,7 @@
     <div class="container-fluid" id="app">
 
         <div class="row justify-content-around">
-           <!--  <button class="btn btn-info" onclick="goBack()">Return</button> -->
+            <!--  <button class="btn btn-info" onclick="goBack()">Return</button> -->
             <div class="col text-center">
                 <h2>Datos de la Partida</h2>
                 <table class="table">
@@ -57,22 +57,23 @@
             </div>
         </div>
         <div class="row" id="opciones">
-            <div class="col">
-                <h1>Opciones</h1>
-                <div class="row">
-                    <div class="col" id="buttonSaveShips">
-                        <button class="btn btn-danger" onclick="saveShips()"><b></b>Save Ships</b></button>
-                    </div>
-                    <div class="col" id="buttonSaveSalvoes">
-                        <button class="btn btn-danger" onclick="saveSalvos()"><b></b>Save Shoots</b></button>
-                    </div>
-                </div>
-                
+
+
+            <div class="col" id="buttonSaveShips">
+                <button class="btn btn-danger" onclick="saveShips()"><b>Save Ships</b></button>
             </div>
+                    <div class="col"><h3 class="status">Estado:><b>{{juego.state}}</b></h3></div>
+
+                    <div class="col" id="buttonSaveSalvoes">
+                        <button class="btn btn-danger" onclick="saveSalvos()"><b>Save Shoots</b></button>
+                    </div>
+                   
+
+
         </div>
         <div class="row ">
 
-            <div class="col text-center ">
+            <div class="col text-center">
                 <h2>Mis Barcos</h2>
                 <div class="grid mostrar">
                     <table class="table-bordered">
@@ -117,27 +118,50 @@
                     </div>
                 </div>
             </div>
+            <div id="barcosHundidos"class="col text-center">
+                <h2>Hundidos</h2>
+                <div class="bloque"id="carrierHundido">
+                    <div><a><strong>Carrier:   </strong></a>                   </div>
+                    <img class="imageHundidos" src="../web/boats/carrierhor.png">
+                </div>
+                <div class="bloque"id="BattleShipHundido">
+                    <div><a><strong>BattleShip:   </strong></a>                   </div>
+                    <img class="imageHundidos" src="../web/boats/battleshiphor.png">
+                </div>
+                <div class="bloque"id="SubmarineHundido">
+                    <div><a><strong>Submarine:   </strong></a>                   </div>
+                    <img class="imageHundidos" src="../web/boats/submarinehor.png">
+                </div>
+                <div class="bloque"id="destroyerHundido">
+                    <div><a><strong>Destroyer:   </strong></a>                   </div>
+                    <img class="imageHundidos" src="../web/boats/destroyerhor.png">
+                </div>
+                <div class="bloque"id="patrolBoatHundido">
+                    <div><a><strong>Patrol Boat:   </strong></a>                   </div>
+                    <img class="imageHundidos" src="../web/boats/patrolBoathor.png">
+                </div>
 
+            </div>
             <div class="col text-center">
                 <h2>Mis Disparos</h2>
                 <table class="table-bordered">
 
                     <tbody id="salvoes">
-                    <tr v-for="item in row">
-                        <!-- <td>{{ item }}</td>  -->
-                        <td :id="'s'+item+0" v-on:click='seleccion(item+0)'></td>
-                        <td :id="'s'+item+1" v-on:click='seleccion(item+1)'></td>
-                        <td :id="'s'+item+2" v-on:click='seleccion(item+2)'></td>
-                        <td :id="'s'+item+3" v-on:click='seleccion(item+3)'></td>
-                        <td :id="'s'+item+4" v-on:click='seleccion(item+4)'></td>
-                        <td :id="'s'+item+5" v-on:click='seleccion(item+5)'></td>
-                        <td :id="'s'+item+6" v-on:click='seleccion(item+6)'></td>
-                        <td :id="'s'+item+7" v-on:click='seleccion(item+7)'></td>
-                        <td :id="'s'+item+8" v-on:click='seleccion(item+8)'></td>
-                        <td :id="'s'+item+9" v-on:click='seleccion(item+9)'></td>
+                        <tr v-for="item in row">
+                            <!-- <td>{{ item }}</td>  -->
+                            <td :id="'s'+item+0" v-on:click='seleccion(item+0)'></td>
+                            <td :id="'s'+item+1" v-on:click='seleccion(item+1)'></td>
+                            <td :id="'s'+item+2" v-on:click='seleccion(item+2)'></td>
+                            <td :id="'s'+item+3" v-on:click='seleccion(item+3)'></td>
+                            <td :id="'s'+item+4" v-on:click='seleccion(item+4)'></td>
+                            <td :id="'s'+item+5" v-on:click='seleccion(item+5)'></td>
+                            <td :id="'s'+item+6" v-on:click='seleccion(item+6)'></td>
+                            <td :id="'s'+item+7" v-on:click='seleccion(item+7)'></td>
+                            <td :id="'s'+item+8" v-on:click='seleccion(item+8)'></td>
+                            <td :id="'s'+item+9" v-on:click='seleccion(item+9)'></td>
 
-                    </tr>
-                       <!-- <tr v-for="item in row">
+                        </tr>
+                        <!-- <tr v-for="item in row">
 
                             <td :id="item+11" v-on:click='seleccion(item+11)'></td>
                             <td :id="item+22" v-on:click='seleccion(item+22)'></td>
