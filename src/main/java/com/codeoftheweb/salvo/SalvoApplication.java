@@ -148,8 +148,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             scrRep.save(score6);
             scrRep.save(score7);
             scrRep.save(score8);
-*/
-/*
+
 
 
             Ship ship4=new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"));
@@ -158,8 +157,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gpPlayer2.addShip(ship5);
             shipRep.save(ship4);
             shipRep.save(ship5);
-*/
-/*
+
 
             // INSTANCIA 1 DE BARCOS PARA LA PARTIDA DE JUEGO  1
             Ship ship0 = new Ship("Destroyer", Arrays.asList("H2", "H3", "H4"));

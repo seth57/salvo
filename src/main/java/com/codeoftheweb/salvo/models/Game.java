@@ -35,7 +35,7 @@ public class Game {
     public Game(LocalDateTime date) {
         this.date = date;
     }
-//SET GLOBAL time_zone = '-3:00'
+    //SET GLOBAL time_zone = '-3:00'
 
     //Public DTO para class Game
    /* public Map<String, Object> gameOrgDTO() {
