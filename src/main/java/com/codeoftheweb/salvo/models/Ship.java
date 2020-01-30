@@ -1,4 +1,5 @@
 package com.codeoftheweb.salvo.models;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,14 +24,16 @@ public class Ship {
     private GamePlayer gamePlayer;
 
     @ElementCollection
-    @Column(name="shipLocation")
+    @Column(name = "shipLocation")
     private List<String> shipLocations = new ArrayList<String>();
 
 
-    public Ship() {   }
-    public Ship(String shipType,List<String> shipLocations ){
-        this.shipLocations=shipLocations;
-        this.shipType=shipType;
+    public Ship() {
+    }
+
+    public Ship(String shipType, List<String> shipLocations) {
+        this.shipLocations = shipLocations;
+        this.shipType = shipType;
     }
 
     public GamePlayer getGamePlayer() {
@@ -54,12 +57,12 @@ public class Ship {
     }
 
 
-   public Map<String, Object> makeShipDTO() {
-       Map<String, Object> dto = new LinkedHashMap<String, Object>();
-       dto.put("type", this.shipType);
-       dto.put("location",this.shipLocations);
-       return dto;
-   }
+    public Map<String, Object> makeShipDTO() {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("type", this.shipType);
+        dto.put("location", this.shipLocations);
+        return dto;
+    }
 
 
 }

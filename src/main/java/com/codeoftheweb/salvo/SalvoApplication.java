@@ -23,24 +23,23 @@ public class SalvoApplication extends SpringBootServletInitializer {
     }
 
 
-
     @Bean
     public CommandLineRunner llenarTablasDB(
             PlayerRepository pjRep,
             GameRepository gameRep,
             GamePlayerRepository gpRep,
-            ShipRepository          shipRep,
+            ShipRepository shipRep,
             SalvoRepository salvoRep,
             ScoreRepository scrRep
-            ) {
+    ) {
         return (args) -> {
             // save a couple of customers
 
 
-            Player player1 = new Player("j.bauer@ctu.gov",passwordEncoder.encode("123"));
-            Player player2 = new Player("c.obrian@ctu.gov",passwordEncoder.encode("123"));
-            Player player3 = new Player("kim_bauer@gmail.com",passwordEncoder.encode("123"));
-            Player player4 = new Player("t.almeida@ctu.gov",passwordEncoder.encode("123")); //el otro metodo seria decode..
+            Player player1 = new Player("j.bauer@ctu.gov", passwordEncoder.encode("123"));
+            Player player2 = new Player("c.obrian@ctu.gov", passwordEncoder.encode("123"));
+            Player player3 = new Player("kim_bauer@gmail.com", passwordEncoder.encode("123"));
+            Player player4 = new Player("t.almeida@ctu.gov", passwordEncoder.encode("123")); //el otro metodo seria decode..
             //Guarda en Respositorios
             pjRep.save(player1);
             pjRep.save(player2);
@@ -171,7 +170,6 @@ public class SalvoApplication extends SpringBootServletInitializer {
             gamePlayer1.addSalvo(salvo1);
             gamePlayer1.addSalvo(salvo2);
             gameplayerRepository.save(gamePlayer1);*/
-
 
 
         };

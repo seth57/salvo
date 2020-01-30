@@ -63,9 +63,9 @@ public class Game {
     }*/
 
     @JsonIgnore
-    public List<Player> getPlayer(){
+    public List<Player> getPlayer() {
         return gamePlayers.stream()
-             .map(GamePlayer::getPlayer)
+                .map(GamePlayer::getPlayer)
                 .collect(Collectors.toList());
 
     }

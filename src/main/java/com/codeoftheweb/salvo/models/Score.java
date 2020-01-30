@@ -24,13 +24,14 @@ public class Score {
     private Player player;
 
 
-    public Score() {    }
+    public Score() {
+    }
 
-    public Score(Game game, Player player, double score){
-        this.game=game;
-        this.player=player;
-        this.score=score;
-        this.finisDate=LocalDateTime.now();
+    public Score(Game game, Player player, double score) {
+        this.game = game;
+        this.player = player;
+        this.score = score;
+        this.finisDate = LocalDateTime.now();
 
     }
 

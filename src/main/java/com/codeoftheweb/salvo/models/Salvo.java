@@ -1,4 +1,5 @@
 package com.codeoftheweb.salvo.models;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,23 +25,25 @@ public class Salvo {
     private GamePlayer gamePlayer;
 
     @ElementCollection
-    @Column(name="salvoLocation")
+    @Column(name = "salvoLocation")
     private List<String> salvoLocations = new ArrayList<String>();
 
 
-    public Salvo() {   }
-    public Salvo(GamePlayer gamePlayer,int turn,List<String> salvoLocations ){
-        this.gamePlayer=gamePlayer;
-        this.salvoLocations=salvoLocations;
-        this.turn=turn;
+    public Salvo() {
+    }
+
+    public Salvo(GamePlayer gamePlayer, int turn, List<String> salvoLocations) {
+        this.gamePlayer = gamePlayer;
+        this.salvoLocations = salvoLocations;
+        this.turn = turn;
     }
 
     public Map<String, Object> makeSalvoDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("turn", this.turn);
         //dto.put("player",this.gamePlayer.player.userName);
-        dto.put("player",this.gamePlayer.getPlayer().getId());
-        dto.put("salvoLocation",this.salvoLocations);
+        dto.put("player", this.gamePlayer.getPlayer().getId());
+        dto.put("salvoLocation", this.salvoLocations);
         return dto;
     }
 
@@ -48,17 +51,16 @@ public class Salvo {
     public Map<String, Object> makeSalvoHitsDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("turn", this.turn);
-        dto.put("misHits",getHits());
+        dto.put("misHits", getHits());
         return dto;
     }
 
 
-    public  Stream<String> getHits(){//para filtrar
+    public Stream<String> getHits() {//para filtrar
         return this.gamePlayer.getOpponent().getShips().stream()
-            .flatMap(y->y.getShipLocations().stream())//para llamar a otro metodo que no esta en mi clase yso los punteros y->y
-            .filter(location->this.salvoLocations.contains(location));
+                .flatMap(y -> y.getShipLocations().stream())//para llamar a otro metodo que no esta en mi clase yso los punteros y->y
+                .filter(location -> this.salvoLocations.contains(location));
     }
-
 
 
     public void setTurn(int turn) {

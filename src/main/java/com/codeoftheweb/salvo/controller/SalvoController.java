@@ -200,14 +200,14 @@ public class SalvoController {
         if (isGuest(authentication)) {//gets the current user if there is none
             return new ResponseEntity<>(makeMap("error", "Unauthorized"), HttpStatus.UNAUTHORIZED);
         }
-        if(salvos.getSalvoLocations().size()>5){//VERIFICAR SI POR CONSOLA PUEDE MANDAR MAS DE 5 TIROS
+        if (salvos.getSalvoLocations().size() > 5) {//VERIFICAR SI POR CONSOLA PUEDE MANDAR MAS DE 5 TIROS
             return new ResponseEntity<>(makeMap("error", "no more than 5 Salvoes"), HttpStatus.UNAUTHORIZED);
         }
-        if(!gamePlayer.getState().equals(State.PLAY)){
-            return new ResponseEntity<>(makeMap("error","no se puede jugar"),HttpStatus.FORBIDDEN);
+        if (!gamePlayer.getState().equals(State.PLAY)) {
+            return new ResponseEntity<>(makeMap("error", "no se puede jugar"), HttpStatus.FORBIDDEN);
         }
         // Salvo salvo1=new Salvo(gpPlayer1,1, Arrays.asList("B5","D1"));
-        salvos.setTurn(gamePlayer.getSalvoes().size()+1);//setea el turno del salvo from gameplayer+1
+        salvos.setTurn(gamePlayer.getSalvoes().size() + 1);//setea el turno del salvo from gameplayer+1
         gamePlayer.addSalvo(salvos);
         gamePlayerRepository.save(gamePlayer);
         //SalvoRepository.save(salvos);
@@ -221,19 +221,19 @@ public class SalvoController {
     }
 
     private void createScores(GamePlayer gamePlayer, State state) {
-        if (state.equals(State.TIE)){
-            Score score=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),0.5);
-            Score score1=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),0.5);
+        if (state.equals(State.TIE)) {
+            Score score = new Score(gamePlayer.getGame(), gamePlayer.getPlayer(), 0.5);
+            Score score1 = new Score(gamePlayer.getGame(), gamePlayer.getOpponent().getPlayer(), 0.5);
             scoreRepository.save(score);
             scoreRepository.save(score1);
-        } else if(state.equals(State.WIN)){
-            Score score2=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),1);
-            Score score3=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),0);
+        } else if (state.equals(State.WIN)) {
+            Score score2 = new Score(gamePlayer.getGame(), gamePlayer.getPlayer(), 1);
+            Score score3 = new Score(gamePlayer.getGame(), gamePlayer.getOpponent().getPlayer(), 0);
             scoreRepository.save(score2);
             scoreRepository.save(score3);
-        }else if(state.equals(State.LOST)){
-            Score score4=new Score(gamePlayer.getGame(),gamePlayer.getPlayer(),0);
-            Score score5=new Score(gamePlayer.getGame(),gamePlayer.getOpponent().getPlayer(),1);
+        } else if (state.equals(State.LOST)) {
+            Score score4 = new Score(gamePlayer.getGame(), gamePlayer.getPlayer(), 0);
+            Score score5 = new Score(gamePlayer.getGame(), gamePlayer.getOpponent().getPlayer(), 1);
             scoreRepository.save(score4);
             scoreRepository.save(score5);
         }

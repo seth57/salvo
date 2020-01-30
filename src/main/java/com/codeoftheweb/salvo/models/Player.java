@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 
-
 @Entity
 public class Player {
     @Id
@@ -28,12 +27,12 @@ public class Player {
     private Set<Score> scores;
 
 
-   public Player() {
+    public Player() {
     }
 
-    public Player(String userName,String password) {
-       this.userName = userName;
-       this.password=password;
+    public Player(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
     //Public DTO
@@ -46,14 +45,13 @@ public class Player {
     //public Player.getScore(game) {return gamePlayers}
 
 
+    public Score getScore(Game game) {
+        return scores.stream()
+                .filter(puntaje -> puntaje.getGame().getId() == game.getId())//retorna el el juego y ID de ESE JUEGO
+                .findFirst()
+                .orElse(null);
 
-public Score getScore(Game game){
-       return scores.stream()
-               .filter(puntaje->puntaje.getGame().getId()==game.getId())//retorna el el juego y ID de ESE JUEGO
-               .findFirst()
-               .orElse(null);
-
-}
+    }
 
     public String getPassword() {
         return password;
@@ -70,6 +68,7 @@ public Score getScore(Game game){
     public String getUserName() {
         return userName;
     }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
