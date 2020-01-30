@@ -1,6 +1,5 @@
 package com.codeoftheweb.salvo;
 
-import com.codeoftheweb.salvo.models.Player;
 import com.codeoftheweb.salvo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +34,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
         return (args) -> {
             // save a couple of customers
 
-
+/*
             Player player1 = new Player("j.bauer@ctu.gov", passwordEncoder.encode("123"));
             Player player2 = new Player("c.obrian@ctu.gov", passwordEncoder.encode("123"));
             Player player3 = new Player("kim_bauer@gmail.com", passwordEncoder.encode("123"));
@@ -44,7 +43,7 @@ public class SalvoApplication extends SpringBootServletInitializer {
             pjRep.save(player1);
             pjRep.save(player2);
             pjRep.save(player3);
-            pjRep.save(player4);
+            pjRep.save(player4);*/
 /*
             Game game1 = new Game(LocalDateTime.now());
             Game game2 = new Game(LocalDateTime.now());
