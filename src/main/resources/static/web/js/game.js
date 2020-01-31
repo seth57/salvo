@@ -43,7 +43,7 @@ fetch(url)
             document.getElementById("buttonSaveSalvoes").style.display = "none";
         }
         //PLAY,WAIT,WAIT_BOATS,WAIT_OPPONENT,TIE,WIN,LOST
-        if (app.juego.state == "WAIT" ||app.juego.state == "PLAY"||app.juego.state == "WAIT_OPPONENT" ) {
+        if (app.juego.state == "WAIT" ||app.juego.state == "WAIT_OPPONENT" ) {
             setInterval(function () { //reload cada 10 sec * 1000 milisec
                 window.location.reload();
             }, 10000);
